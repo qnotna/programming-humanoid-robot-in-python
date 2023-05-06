@@ -6,7 +6,6 @@ In this exercise you need to know how to set joint commands.
     2. set speed of HeadYaw to 0.1
 
 * Hint: The commands are stored in action (class Action in spark_agent.py)
-
 '''
 
 # add PYTHONPATH
@@ -15,7 +14,6 @@ import sys
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'software_installation'))
 
 from spark_agent import SparkAgent
-
 
 class MyAgent(SparkAgent):
     def think(self, perception):
