@@ -52,7 +52,8 @@ class PIDController(object):
         @param sensor: current values from sensor
         @return control signal
         '''
-        e0 = target - sensor # delta value
+        self.y.appendleft(sensor + self.dt * self.u) # predicted value
+        e0 = target - (sensor + self.y[0] - self.y[-1]) # delta value
         p = (self.Kp + self.Ki * self.dt + (self.Kd / self.dt)) * e0
         i = (self.Kp + 2 * self.Kd / self.dt) * self.e1
         d = self.Kd / self.dt * self.e2
