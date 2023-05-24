@@ -5,7 +5,7 @@
     2. adjust PID parameters for NAO in simulation
 
 * Hints:
-    1. the motor in simulation can simple modelled by angle(t) = angle(t-1) + speed * dt
+    1. the motor in simulation can simply modelled by angle(t) = angle(t-1) + speed * dt
     2. use self.y to buffer model prediction
 '''
 
@@ -52,10 +52,14 @@ class PIDController(object):
         @param sensor: current values from sensor
         @return control signal
         '''
-        # YOUR CODE HERE
-
+        e0 = target - sensor # delta value
+        p = (self.Kp + self.Ki * self.dt + (self.Kd / self.dt)) * e0
+        i = (self.Kp + 2 * self.Kd / self.dt) * self.e1
+        d = self.Kd / self.dt * self.e2
+        self.u = self.u + p - i + d
+        self.e2 = self.e1 # remember preprevious
+        self.e1 = e0 # repember previous
         return self.u
-
 
 class PIDAgent(SparkAgent):
     def __init__(self, simspark_ip='localhost',
